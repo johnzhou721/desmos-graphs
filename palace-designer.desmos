@@ -1,0 +1,91 @@
+settings @{
+  randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
+  viewport: @{
+    xmin: -652.237517659261,
+    xmax: 1123.4701135003675,
+    ymin: -323.0821849826963,
+    ymax: 894.9052988951588,
+  },
+}
+
+folder "Designer" {
+  table {
+    a = [] @{ color: "#c74440", hidden: true }
+
+    b = [] @{ color: "#2d70b3", hidden: true }
+
+    c = [] @{ color: "#388c46", hidden: true }
+
+    d = [] @{ color: "#6042a6", hidden: true }
+  }
+
+  S_tampMid =
+    a -> join(a, 0), b -> join(b, B), c -> join(c, C), d -> join(d, D) @{
+    color: "#c74440",
+  }
+
+  S_tampSym =
+    a -> join(a, [A, -A]),
+    b -> join(b, [B, B]), c -> join(c, [C, C]), d -> join(d, [D, D]) @{
+    color: "#c74440",
+  }
+
+  "To use designer, enable 3 lines below:"
+
+  y = C * I_ceCastle((x - A) / D) + B * {y >= 0} @{
+    color: "#388c46",
+    hidden: true,
+    fill: 1,
+  }
+
+  (A, B) @{ color: "#2d70b3", hidden: true }
+
+  (A + D, B + C) @{ color: "#6042a6", hidden: true }
+
+  C = 7 @{ color: "#c74440", hidden: true, slider: @{ min: 0, max: 205 } }
+
+  D = 3 @{ color: "#2d70b3", hidden: true, slider: @{ min: 0, max: 3480 } }
+
+  B = 189 @{
+    color: "#000000",
+    hidden: true,
+    slider: @{ min: -67.4, max: 2890 },
+  }
+
+  A = -37 @{
+    color: "#6042a6",
+    hidden: true,
+    slider: @{ min: -1660, max: 1900 },
+  }
+}
+
+I_ceCastle(x) =
+  {
+    -2.4 <= x <= 0: 3 * tan(x + 1),
+    x <= -2.4: 3 * sec(-2.4 + 1) ^ 2 * (x - -2.4) + 3 * tan(-2.4 + 1),
+    x >= 2.4:
+    -3 * sec(-2.4 + 1) ^ 2 * (x - 2.4) + 3 * tan(-2.4 + 1) * {x >= 2.4},
+    3 * tan(-x + 1)
+  } @{ color: "#000000", hidden: true }
+
+0 <= y <= c * I_ceCastle((x - a) / d) + b @{ color: C_olor }
+
+c = [40, 40, 37, 14, 50, 15, 15, 18, 18] @{ color: "#388c46", hidden: true }
+
+a = [-83, 83, 0, 0, 0, -41, 41, -116, 116] @{ color: "#6042a6", hidden: true }
+
+d = [6, 6, 55, 32, 15, 5, 5, 5, 5] @{ color: "#000000", hidden: true }
+
+b = [171, 171, 313, 281, 553, 493, 493, 216, 216] @{
+  color: "#c74440",
+  hidden: true,
+}
+
+I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
+
+C_olor =
+  hsv(
+    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72),
+    1
+  ) @{ color: "#c74440" }
