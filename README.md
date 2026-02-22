@@ -1,5 +1,5 @@
 # desmos-3d-graphs
-Some of my Desmos Graphs. Maintained in DesModder Text Mode BETA format.
+Some of my Desmos Graphs. Maintained in DesModder Text Mode BETA format.  ``.desmos`` files are just plain text files, not any format.
 
 ## Usage
 
@@ -17,3 +17,8 @@ Note: Roughness of branches is a rendering error. No real roughness is implement
 https://www.desmos.com/3d/2r18v5g1vb
 
 Various forms of rockets etc. that are NOT accurate models. Lots of rendering issues from a far distance, and due to banned compound inequalities workarounds have to be made w/ square roots to restrict range.
+
+## notebook.desmos
+https://www.desmos.com/calculator/36bbfefc4a
+
+Something that resembles a notebook shape.  Linear equations only, as it was for a school project.
