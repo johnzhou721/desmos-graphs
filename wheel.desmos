@@ -1,0 +1,163 @@
+settings @{
+  randomSeed: "cdf7784063b3992c4240f80eec6267e2",
+  viewport: @{
+    xmin: -7.458504224958443,
+    xmax: 8.234794466388593,
+    ymin: -5.408819160150433,
+    ymax: 5.355476184086404,
+  },
+}
+
+R_ot(C, P, alpha) =
+  (
+    C.x + (P.x - C.x) * cos(alpha) - (P.y - C.y) * sin(alpha),
+    C.y + (P.x - C.x) * sin(alpha) + (P.y - C.y) * cos(alpha)
+  ) @{ color: "#000000" }
+
+T_ime = 0 @{
+  color: "#c74440",
+  slider: @{ loopMode: "LOOP_FORWARD", min: 0, max: 2 * pi },
+}
+
+R_ot((0, 0), (5, 0), t) @{
+  color: "#000000",
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
+
+R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (5, 0), T_ime), t) @{
+  color: "#388c46",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
+
+R_ot(
+  R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (4, 0), T_ime), T_ime),
+  R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (5, 0), T_ime), T_ime),
+  t
+) @{
+  color: "#c74440",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
+
+C_3 = R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (4, 0), T_ime), T_ime) @{
+  color: "#c74440",
+  hidden: true,
+}
+
+"Center of 4th one before rotation"
+
+C_4nr =
+  R_ot(
+    C_3,
+    R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (4.5, 0), T_ime), T_ime),
+    T_ime
+  ) @{ color: "#388c46", hidden: true }
+
+P_4nr =
+  R_ot(
+    C_3,
+    R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (5, 0), T_ime), T_ime),
+    T_ime
+  ) @{ color: "#6042a6", hidden: true }
+
+C_4 = R_ot(C_3, C_4nr, T_ime) @{ color: "#000000", hidden: true }
+
+P_4 = R_ot(C_3, P_4nr, T_ime) @{ color: "#c74440", hidden: true }
+
+R_ot(C_4, P_4, t) @{
+  color: "#2d70b3",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
+
+"Center of 5th before rotation"
+
+C_5nr =
+  R_ot(
+    C_4,
+    R_ot(
+      C_3,
+      R_ot(
+        C_3,
+        R_ot(
+          R_ot((0, 0), (3, 0), T_ime),
+          R_ot((0, 0), (4.75, 0), T_ime),
+          T_ime
+        ),
+        T_ime
+      ),
+      T_ime
+    ),
+    T_ime
+  ) @{ color: "#000000", hidden: true }
+
+P_5nr =
+  R_ot(
+    C_4,
+    R_ot(
+      C_3,
+      R_ot(
+        C_3,
+        R_ot(R_ot((0, 0), (3, 0), T_ime), R_ot((0, 0), (5, 0), T_ime), T_ime),
+        T_ime
+      ),
+      T_ime
+    ),
+    T_ime
+  ) @{ color: "#c74440", hidden: true }
+
+C_5 = R_ot(C_4, C_5nr, T_ime) @{ color: "#2d70b3", hidden: true }
+
+P_5 = R_ot(C_4, P_5nr, T_ime) @{ color: "#388c46", hidden: true }
+
+R_ot(C_5, P_5, t) @{
+  color: "#fa7e19",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
+
+P_6nr = R_ot(C_5, P_5, T_ime) @{ color: "#c74440", hidden: true }
+
+C_6nr =
+  R_ot(
+    C_5,
+    R_ot(
+      C_4,
+      R_ot(
+        C_4,
+        R_ot(
+          C_3,
+          R_ot(
+            C_3,
+            R_ot(
+              R_ot((0, 0), (3, 0), T_ime),
+              R_ot((0, 0), (4.875, 0), T_ime),
+              T_ime
+            ),
+            T_ime
+          ),
+          T_ime
+        ),
+        T_ime
+      ),
+      T_ime
+    ),
+    T_ime
+  ) @{ color: "#2d70b3", hidden: true }
+
+C_6 = R_ot(C_5, C_6nr, T_ime) @{ color: "#6042a6", hidden: true }
+
+P_6 = R_ot(C_5, P_6nr, T_ime) @{ color: "#c74440", hidden: true }
+
+R_ot(C_6, P_6, t) @{
+  color: "#6042a6",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: 2 * pi } },
+}
