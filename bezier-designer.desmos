@@ -1,0 +1,100 @@
+settings @{
+  randomSeed: "27d7db0b63a466031675d8c9e31bffa2",
+  viewport: @{
+    xmin: 9.188825403608528,
+    xmax: 30.438825403612633,
+    ymin: 3.9691557522912024,
+    ymax: 27.323948805614336,
+  },
+}
+
+-1 <= x <= 36 * {-8 <= y <= 20} @{
+  color: "#000000",
+  lines: @{ width: 0 },
+  fill: 1,
+}
+
+D_raw =
+  A_s -> join(A_s, A),
+  B_s -> join(B_s, B),
+  C_s -> join(C_s, C),
+  D_s -> join(D_s, D),
+  A -> D,
+  D -> (D.x + 1, D.y + 1),
+  X_fs1 -> -X_fs2, Y_fs1 -> -Y_fs2, X_fs2 -> 0.2, Y_fs2 -> 0.2 @{
+  color: "#2d70b3",
+}
+
+U_ndo =
+  A -> A_s[length(A_s)],
+  X_fs1 -> (B_s[length(B_s)]).x - (A_s[length(A_s)]).x,
+  Y_fs1 -> (B_s[length(B_s)]).y - (A_s[length(A_s)]).y,
+  X_fs2 -> (C_s[length(C_s)]).x - (D_s[length(D_s)]).x,
+  Y_fs2 -> (C_s[length(C_s)]).y - (D_s[length(D_s)]).y,
+  D -> D_s[length(D_s)],
+  A_s -> {length(A_s) = 1: [], A_s[1 ... length(A_s) - 1]},
+  B_s -> {length(B_s) = 1: [], B_s[1 ... length(B_s) - 1]},
+  C_s -> {length(C_s) = 1: [], C_s[1 ... length(C_s) - 1]},
+  D_s -> {length(D_s) = 1: [], D_s[1 ... length(D_s) - 1]} @{ color: "#c74440" }
+
+C_lear = A_s -> [], B_s -> [], C_s -> [], D_s -> [] @{ color: "#000000" }
+
+B_ezier(A, B, C, D, t) =
+  (
+    (1 - t) ^ 3 * A.x + 3 * t(1 - t) ^ 2 * B.x + 3 * t ^ 2 * (1 - t) * C.x +
+      t ^ 3 * D.x,
+    (1 - t) ^ 3 * A.y + 3 * t(1 - t) ^ 2 * B.y + 3 * t ^ 2 * (1 - t) * C.y +
+      t ^ 3 * D.y
+  ) @{ color: "#c74440" }
+
+X_fs1 = -0.03 @{ color: "#6042a6" }
+
+X_fs2 = 0.2 @{ color: "#c74440" }
+
+Y_fs1 = 2.03 @{ color: "#000000" }
+
+Y_fs2 = 0.2 @{ color: "#2d70b3" }
+
+A = (25.456, 19.506) @{ color: "#2d70b3" }
+
+B = (A.x + X_fs1, A.y + Y_fs1) @{ color: "#388c46" }
+
+C = (D.x + X_fs2, D.y + Y_fs2) @{ color: "#6042a6" }
+
+D = (26.456, 20.506) @{ color: "#fa7e19" }
+
+B_ezier(A, B, C, D, t) @{ color: "#fa7e19" }
+
+polygon(A, B) @{ color: "#2d70b3" }
+
+polygon(C, D) @{ color: "#388c46" }
+
+A_s =
+  [(21.8, 12.6), (22.234, 14.27), (23.234, 15.27), (23, 15.6), (24, 16.6), (22.456, 16.506), (23.456, 17.506), (24.456, 18.506)] @{
+  color: "#388c46",
+  hidden: true,
+}
+
+B_s =
+  [(20.79, 13.34), (22.944, 13.67), (23.034, 15.07), (24.4, 16.076), (23.8, 16.4), (23.356, 16.896), (21.476, 16.996), (24.256, 18.306)] @{
+  color: "#6042a6",
+  hidden: true,
+}
+
+C_s =
+  [(21.524, 14.87), (23.434, 15.47), (21.6, 15.124), (24.2, 16.8), (21.556, 16.116), (25.436, 18.016), (24.656, 18.706), (25.486, 17.476)] @{
+  color: "#000000",
+  hidden: true,
+}
+
+D_s =
+  [(22.234, 14.27), (23.234, 15.27), (23, 15.6), (24, 16.6), (22.456, 16.506), (23.456, 17.506), (24.456, 18.506), (25.456, 19.506)] @{
+  color: "#c74440",
+  hidden: true,
+}
+
+B_ezier(A_s, B_s, C_s, D_s, t) @{ color: C_olor }
+
+C_olor = hsv([720 / length(A_s), 2 * (720 / length(A_s)) ... 720], 1, 1) @{
+  color: "#c74440",
+}
