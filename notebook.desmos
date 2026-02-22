@@ -1,0 +1,193 @@
+settings @{
+  randomSeed: "cee40d1b19945607705abfeac4e1c28f",
+  viewport: @{
+    xmin: -24.82588282513465,
+    xmax: 27.93268712220189,
+    ymin: -16.13860392538074,
+    ymax: 20.049379240060556,
+  },
+}
+
+"DarkYellow is actually light -- we're in dark mode and I had to inverse the colors for the switch. 𝐂𝐨𝐯𝐞𝐫 𝐮𝐬𝐞𝐝 𝐌𝐘𝐞𝐥𝐥𝐨𝐰, 𝐒𝐢𝐝𝐞 𝐮𝐬𝐞𝐝 𝐌𝐘𝐞𝐥𝐥𝐨𝐰𝟐, 𝐥𝐢𝐧𝐞𝐬 𝐨𝐧 𝐭𝐡𝐞 𝐫𝐢𝐠𝐡𝐭 𝐮𝐬𝐞𝐝 𝐘𝐞𝐥𝐥𝐨𝐰, 𝐨𝐮𝐭𝐥𝐢𝐧𝐞𝐬 𝐮𝐬𝐞𝐝 𝐃𝐚𝐫𝐤𝐘𝐞𝐥𝐥𝐨𝐰"
+
+D_arkyellow = rgb(230, 200, 10) @{ color: "#388c46" }
+
+M_yellow = rgb(80, 80, 10) @{ color: "#2d70b3" }
+
+M_yellow2 = rgb(80, 80, 30) @{ color: "#c74440" }
+
+Y_ellow = rgb(120, 100, 50) @{ color: "#2d70b3" }
+
+S_ilver = rgb(200, 200, 210) @{ color: "#388c46" }
+
+B_lue = rgb(100, 192, 230) @{ color: "#000000" }
+
+M_agenta = rgb(255, 0, 255) @{ color: "#6042a6" }
+
+table {
+  B_ackgroundX = [-30, -30, 30, 30] @{ color: "#000000", hidden: true }
+
+  B_ackgrounY = [30, -30, -30, 30] @{
+    color: "#c74440",
+    hidden: true,
+    points: @{ size: 0 },
+  }
+}
+
+"Overridden: Fill: 1, CANCEL Lines"
+
+polygon((B_ackgroundX, B_ackgrounY)) @{
+  color: "#000000",
+  lines: @{ width: 0 },
+  fill: 0.7,
+}
+
+table {
+  C_overX =
+    [
+      -12,
+      -10,
+      -(23 / 2),
+      -10,
+      -(21 / 2),
+      -10,
+      -(98 / 9),
+      -10,
+      -(35 / 3),
+      -10,
+      -(21 / 2),
+      -10,
+      -(74 / 7),
+      -10,
+      -(45 / 4),
+      -10,
+      -(32 / 3),
+      -10,
+      -(76 / 7),
+      -10,
+      -12,
+      9,
+      9
+    ] @{ color: "#2d70b3", hidden: true }
+
+  C_overY =
+    [
+      15,
+      14,
+      25 / 2,
+      11,
+      21 / 2,
+      10,
+      22 / 3,
+      6,
+      7 / 2,
+      1,
+      0,
+      -1,
+      -(13 / 7),
+      -3,
+      -(11 / 2),
+      -8,
+      -9,
+      -10,
+      -(85 / 7),
+      -13,
+      -15,
+      -15,
+      15
+    ] @{ color: "#388c46", hidden: true }
+}
+
+"Override: fill 1, CANCEL lines."
+
+polygon((C_overX, C_overY)) @{ color: M_yellow, lines: @{ width: 0 }, fill: 1 }
+
+table {
+  S_ideX = [-12, -9, 12, 12, 9, 9] @{ color: "#2d70b3", hidden: true }
+
+  S_ideY = [15, 17, 17, -13, -15, 15] @{ color: "#388c46", hidden: true }
+}
+
+"Override: Fill 0.8"
+
+polygon(S_ideX, S_ideY) @{ color: M_yellow2, lines: @{ width: 0 }, fill: 0.8 }
+
+y = 17 * {-9 <= x <= 12} @{ color: D_arkyellow }
+
+x = 12 * {-13 <= y <= 17} @{ color: D_arkyellow }
+
+y = (2 / 3) * x - 21 * {9 <= x <= 12} @{ color: D_arkyellow }
+
+y = -15 * {-12 <= x <= 9} @{ color: D_arkyellow }
+
+y = x - 3 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -x - 23 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (3 / 2) * x + 7 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -2 * x - 28 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (3 / 2) * x + 14 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -2 * x - 21 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (3 / 2) * x + 21 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -(3 / 2) * x - 9 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = x + 21 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -x + 1 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (1 / 2) * x + 19 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -(1 / 2) * x + 9 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (2 / 3) * x + 23 * {-12 <= x <= -9} @{ color: D_arkyellow }
+
+y = 15 * {-12 <= x <= 9} @{ color: D_arkyellow }
+
+x = 9 * {-15 <= y <= 15} @{ color: D_arkyellow }
+
+y = (5 / 2) * x + 15 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -(3 / 2) * x - 25 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = 2 * x + 17 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -2 * x - 23 * {-11 <= x <= -10} @{ color: S_ilver }
+
+y = 2 * x + 21 * {-11 <= x <= -10} @{ color: S_ilver }
+
+y = -(3 / 2) * x - 14 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = 3 * x + 40 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = -x * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = x + 24 * {-12 <= x <= -10} @{ color: S_ilver }
+
+y = (5 / 4) * x + (63 / 4) * {-7 <= x <= -3} @{ color: M_agenta }
+
+y = 5 * x + 27 * {-4 <= x <= -3} @{ color: M_agenta }
+
+y = (5 / 3) * x + (41 / 3) * {-4 <= x <= -1} @{ color: M_agenta }
+
+y = (5 / 3) * x + 7 * {0 <= x <= 3} @{ color: B_lue }
+
+y = -(1 / 3) * x + 13 * {3 <= x <= 6} @{ color: B_lue }
+
+y = (1 / 2) * x + 8 * {4 <= x <= 6} @{ color: B_lue }
+
+y = (1 / 3) * x + (26 / 3) * {1 <= x <= 4} @{ color: B_lue }
+
+y = -(1 / 5) * x + (46 / 5) * {1 <= x <= 6} @{ color: B_lue }
+
+y = (1 / 6) * x + 7 * {0 <= x <= 6} @{ color: B_lue }
+
+x = 10 * {-14 <= y <= 15} @{ color: Y_ellow }
+
+x = 11 * {-13 <= y <= 16} @{ color: Y_ellow }
+
+y = (2 / 3) * x + 9 * {9 <= x <= 12} @{ color: D_arkyellow }
