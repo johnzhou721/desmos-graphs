@@ -1,0 +1,55 @@
+settings @{
+  product: "graphing-3d",
+  randomSeed: "cd6ec885c7aeeff530b683fd626b9833",
+  viewport: @{
+    xmin: -7.756641079892564,
+    xmax: 7.756641079892564,
+    ymin: -7.756641079892564,
+    ymax: 7.756641079892564,
+    zmin: -7.756641079892564,
+    zmax: 7.756641079892564,
+  },
+  axis3D: [0.987918750463535, 0.15497271540056465, -9.961478462505962e-13],
+  worldRotation3D: [0.12764694055074746, 0.9879187504457663, 0.08787946908024626, -0.8137226329359408, 0.15497271539788368, -0.5602132934250218, -0.5670641367746112, 5.715478951789746e-13, 0.8236736397288441],
+}
+
+f(t, r, h) =
+  (
+    r * (((0.2 * cos(10 * t) + 2) * cos(t)) / 2),
+    r * (((0.2 * cos(10 * t) + 2) * sin(t)) / 2), h
+  ) @{ color: "#2d70b3" }
+
+f(u, a(v) / p, v) @{
+  color: "#fa7e19",
+  domain: @{ u: @{ min: 0, max: 2 * pi }, v: @{ min: -3.6, max: 0 } },
+}
+
+p = 1.2 @{ color: "#6042a6", hidden: true }
+
+a(x) = -0.4 * x ^ 2 + 7 @{ color: "#2d70b3", hidden: true }
+
+b(x) = -0.2 * x ^ 2 + 7 @{ color: "#6042a6", hidden: true }
+
+f(u, b(v) / p, v) @{
+  color: "#fa7e19",
+  domain: @{ u: @{ min: 0, max: 2 * pi }, v: @{ min: 0, max: 5.5 } },
+}
+
+c(x) = 2 * (x - 4) ^ 2 - 3.55 @{ color: "#c74440", hidden: true }
+
+4 + sqrt(3.55 / 2) <= y <= 5.5 @{ color: "#2d70b3", hidden: true }
+
+f(u, c(v) / p, v) @{
+  color: "#fa7e19",
+  domain: @{
+    u: @{ min: 0, max: 2 * pi },
+    v: @{ min: 4 + sqrt(3.55 / 2), max: 5.5 },
+  },
+}
+
+d(x) = (454 * (10 * x + 39)) / 750 @{ color: "#aaaaaa", hidden: true }
+
+f(u, d(v) / p, v) @{
+  color: "#fa7e19",
+  domain: @{ u: @{ min: 0, max: 2 * pi }, v: @{ min: -3.9, max: -3.6 } },
+}
