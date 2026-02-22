@@ -1,0 +1,50 @@
+settings @{
+  randomSeed: "111004ef66446c723d902c017e2e57f0",
+  viewport: @{
+    xmin: -7.298500247122443,
+    xmax: 8.3947984442251,
+    ymin: -4.900346952447085,
+    ymax: 5.863948391790102,
+  },
+}
+
+"Adjust colors"
+
+S_lip = rgb(255, 255, 70) @{ color: "#6042a6" }
+
+B_and = rgb(0, 128, 0) @{ color: "#6042a6" }
+
+"The rest of stuff (a lot of transformations). Ideally the visually \"back\" element goes first."
+
+sqrt(1 - x ^ 2 / 6 ^ 2) <= y <= sqrt(1 - x ^ 2 / 6 ^ 2) + 0.5 * {2 < x < 3} @{
+  color: S_lip,
+  lines: @{ width: 0 },
+  fill: 1,
+}
+
+sqrt(1 - x ^ 2 / 6 ^ 2) <=
+  -(y - 1.116) +
+    1.116 * {3 < x < 4} *
+      {-(y - 1.116) + 1.116 <= sqrt(1 - x ^ 2 / 6 ^ 2) + 0.5} @{
+  color: S_lip,
+  lines: @{ width: 0 },
+  fill: 1,
+}
+
+sqrt(1 - x ^ 2 / 6 ^ 2) <= y <= sqrt(1 - x ^ 2 / 6 ^ 2) + 0.5 @{
+  color: B_and,
+  lines: @{ width: 0 },
+  fill: 0.6,
+}
+
+sqrt(1 - x ^ 2 / 6 ^ 2) <= y <= sqrt(1 - x ^ 2 / 6 ^ 2) + 0.5 * {0.5 < x < 2} @{
+  color: B_and,
+  lines: @{ width: 0 },
+  fill: 0.6,
+}
+
+-sqrt(1 - x ^ 2 / 6 ^ 2) <= y <= -sqrt(1 - x ^ 2 / 6 ^ 2) + 0.5 @{
+  color: B_and,
+  lines: @{ width: 0 },
+  fill: 0.9,
+}
