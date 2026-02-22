@@ -1,6 +1,8 @@
 # desmos-3d-graphs
 Some of my Desmos Graphs. Maintained in DesModder Text Mode BETA format.  ``.desmos`` files are just plain text files, not any format.
 
+Finished in mostly 2023--mid-2024, *maybe* a few changes in early 2025.  I don't remember, most are committed after the fact.  I've lost interest in Desmos.
+
 ## Usage
 
 Install DesModer, Go to https://www.desmos.com/3d (or /calculator if the graph is 2D), Click the DesModer button, Core -> Text Mode BETA -- ON, click on the T icon, paste in the plain text comments from .desmos files. .desmos is not an actual file format, just use it as plain text.
