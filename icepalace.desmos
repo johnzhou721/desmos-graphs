@@ -1,0 +1,138 @@
+settings @{
+  randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
+  viewport: @{
+    xmin: -682.3667744939047,
+    xmax: 798.0522072341095,
+    ymin: -144.73767003781643,
+    ymax: 967.7965604467323,
+  },
+  lockViewport: true,
+}
+
+I_ceCastle(x) =
+  {
+    -2.4 <= x <= 0: 3 * tan(x + 1),
+    x <= -2.4: 3 * sec(-2.4 + 1) ^ 2 * (x - -2.4) + 3 * tan(-2.4 + 1),
+    x >= 2.4:
+    -3 * sec(-2.4 + 1) ^ 2 * (x - 2.4) + 3 * tan(-2.4 + 1) * {x >= 2.4},
+    3 * tan(-x + 1)
+  } @{ color: "#000000", hidden: true }
+
+f_f(x) = c * I_ceCastle((x - a) / d) + b @{ color: "#2d70b3", hidden: true }
+
+c = [68, 24, 40, 40, 37, 14, 50, 15, 15, 18, 18, 18, 53, 53] @{
+  color: "#388c46",
+  hidden: true,
+}
+
+polygon((-1000, 1000), (1000, 1000), (1000, -1000), (-1000, -1000)) @{
+  color: "#000000",
+  fill: 1,
+}
+
+y <= f_f(x) @{
+  color: C_olor2,
+  lines: @{ opacity: 0.7, width: 4 },
+  fill: 2 ^ -99,
+}
+
+"We only outline outside... so the next line basically ides the lines that went inside at the last line."
+
+y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+
+y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 }
+
+y <= -100 @{ color: "#000000", fill: 1 }
+
+a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
+  color: "#6042a6",
+  hidden: true,
+}
+
+d = [10, 74, 66, 6, 6, 55, 32, 15, 5, 5, 5, 5, 6, 6] @{
+  color: "#000000",
+  hidden: true,
+}
+
+b = [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460] @{
+  color: "#c74440",
+  hidden: true,
+}
+
+I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
+
+C_olor =
+  hsv(
+    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) + 0.16,
+    1
+  ) @{ color: "#c74440" }
+
+C_olor2 =
+  hsv(
+    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.3,
+    1
+  ) @{ color: "#6042a6" }
+
+folder "Designer" {
+  table {
+    a = [] @{ color: "#c74440", hidden: true }
+
+    b = [] @{ color: "#2d70b3", hidden: true }
+
+    c = [] @{ color: "#388c46", hidden: true }
+
+    d = [] @{ color: "#6042a6", hidden: true }
+  }
+
+  S_tampMid =
+    a -> join(a, 0), b -> join(b, B), c -> join(c, C), d -> join(d, D) @{
+    color: "#c74440",
+  }
+
+  S_tampMidPre =
+    a -> join(0, a), b -> join(B, b), c -> join(C, c), d -> join(D, d) @{
+    color: "#388c46",
+  }
+
+  S_tampSym =
+    a -> join(a, [A, -A]),
+    b -> join(b, [B, B]), c -> join(c, [C, C]), d -> join(d, [D, D]) @{
+    color: "#c74440",
+  }
+
+  S_tampSymPre =
+    a -> join([A, -A], a),
+    b -> join([B, B], b), c -> join([C, C], c), d -> join([D, D], d) @{
+    color: "#6042a6",
+  }
+
+  "To use designer, enable 3 lines below:"
+
+  y = C * I_ceCastle((x - A) / D) + B * {y >= 0} @{
+    color: "#c74440",
+    hidden: true,
+    fill: 1,
+  }
+
+  (A, B) @{ color: "#c74440", hidden: true }
+
+  (A + D, B + C) @{ color: "#000000", hidden: true }
+
+  C = 68 @{ color: "#c74440", hidden: true, slider: @{ min: 0, max: 205 } }
+
+  D = 10 @{ color: "#2d70b3", hidden: true, slider: @{ min: 0, max: 3480 } }
+
+  B = 253 @{
+    color: "#000000",
+    hidden: true,
+    slider: @{ min: -67.4, max: 2890 },
+  }
+
+  A = -516 @{
+    color: "#6042a6",
+    hidden: true,
+    slider: @{ min: -1660, max: 1900 },
+  }
+}
