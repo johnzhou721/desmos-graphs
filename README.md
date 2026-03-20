@@ -27,8 +27,10 @@ https://www.desmos.com/calculator/36bbfefc4a
 
 Something that resembles a notebook shape.  Linear equations only, as it was for a school project.
 
-## palace-designer.desmos and icepalace.desmos (2D)
-https://www.desmos.com/calculator/evzjjcxrge and https://www.desmos.com/calculator/0qaurut1xd
+## icepalace.desmos and old/icepalace.desmos (2D)
+https://www.desmos.com/calculator/lautf1iuni and https://www.desmos.com/calculator/0qaurut1xd
+
+NOTE: The second link and the old/ file is no longer updated or improved.  These were a 1-liner party trick I did.
 
 Unofficial fanart inspired by Disney's *Frozen* (2013).  The designer / first link has utilities to create new pillars.
 
