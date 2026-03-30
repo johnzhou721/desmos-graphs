@@ -1,12 +1,11 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -682.3667744939047,
-    xmax: 798.0522072341095,
-    ymin: -144.73767003781643,
-    ymax: 967.7965604467323,
+    xmin: -788.2757286770873,
+    xmax: 784.6694394089413,
+    ymin: -346.3320108830794,
+    ymax: 1078.7433118560161,
   },
-  lockViewport: true,
 }
 
 I_ceCastle(x) =
@@ -25,24 +24,22 @@ c = [68, 24, 40, 40, 37, 14, 50, 15, 15, 18, 18, 18, 53, 53] @{
   hidden: true,
 }
 
-polygon((-1000, 1000), (1000, 1000), (1000, -1000), (-1000, -1000)) @{
+polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
   color: "#000000",
   fill: 1,
 }
 
-y <= f_f(x) @{
+-100 <= y <= f_f(x) @{
   color: C_olor2,
   lines: @{ opacity: 0.7, width: 4 },
   fill: 2 ^ -99,
 }
 
-"We only outline outside... so the next line basically ides the lines that went inside at the last line."
+"We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
-y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+-100 <= y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.7 }
 
-y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 }
-
-y <= -100 @{ color: "#000000", fill: 1 }
+-100 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 }
 
 a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
   color: "#6042a6",
