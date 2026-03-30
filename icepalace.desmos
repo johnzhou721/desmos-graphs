@@ -1,10 +1,10 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -900.3853094100033,
-    xmax: 875.3223217496276,
-    ymin: -208.90156845566685,
-    ymax: 1059.2544515174627,
+    xmin: -757.8079099235362,
+    xmax: 815.1372581625045,
+    ymin: -176.00765586023158,
+    ymax: 982.2399616137079,
   },
 }
 
@@ -29,19 +29,26 @@ polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
   fill: 1,
 }
 
--100 <= y <= f_f(x) @{
+y <= f_f(x) @{
   color: C_olor2,
   lines: @{ opacity: 0.7, width: 4 },
   fill: 2 ^ -99,
 }
 
-y <= -100 @{ color: "#000000" }
+"Enable next line for actual shapes"
+
+y <= -100 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
 
 "We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
 y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
 
--100 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 }
+-100 <= y <= f_f(x) @{
+  color: C_olor,
+  hidden: true,
+  lines: @{ width: 0 },
+  fill: 0.7,
+}
 
 a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
   color: "#6042a6",
