@@ -1,10 +1,10 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -788.2757286770873,
-    xmax: 784.6694394089413,
-    ymin: -346.3320108830794,
-    ymax: 1078.7433118560161,
+    xmin: -691.5514416003693,
+    xmax: 701.7840706142488,
+    ymin: -199.28838754295634,
+    ymax: 1063.0620713539633,
   },
 }
 
@@ -37,7 +37,7 @@ polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
 
 "We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
--100 <= y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.7 }
+y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.7 }
 
 -100 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 }
 
