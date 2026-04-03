@@ -1,0 +1,330 @@
+settings @{
+  randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
+  viewport: @{
+    xmin: -816.8210620379742,
+    xmax: 756.1241060479725,
+    ymin: -203.3061391827946,
+    ymax: 913.638638155109,
+  },
+}
+
+I_ceCastle(x) =
+  {
+    -2.4 <= x <= 0: 3 * tan(x + 1),
+    x <= -2.4: 3 * sec(-2.4 + 1) ^ 2 * (x - -2.4) + 3 * tan(-2.4 + 1),
+    x >= 2.4:
+    -3 * sec(-2.4 + 1) ^ 2 * (x - 2.4) + 3 * tan(-2.4 + 1) * {x >= 2.4},
+    3 * tan(-x + 1)
+  } @{ color: "#000000", hidden: true }
+
+f_f(x) = c * I_ceCastle((x - a) / d) + b @{ color: "#2d70b3", hidden: true }
+
+c = [68, 24, 40, 40, 37, 14, 50, 15, 15, 18, 18, 18, 53, 53] @{
+  color: "#388c46",
+  hidden: true,
+}
+
+F_ill = 1 @{ color: "#388c46", slider: @{ min: 0, max: 1, step: 1 } }
+
+polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
+  color: "#000000",
+  fill: 1,
+}
+
+y <= f_f(x) @{
+  color: C_olor2,
+  lines: @{ opacity: 0.7, width: 4 },
+  fill: 2 ^ -99,
+}
+
+y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
+
+"We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
+
+-120 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 * F_ill }
+
+folder "Glow" {
+  C_om(t) =
+    B_ezier(
+      A_s[floor(t + 1)],
+      B_s[floor(t + 1)],
+      C_s[floor(t + 1)],
+      D_s[floor(t + 1)],
+      t - floor(t)
+    ) @{ color: "#000000" }
+
+  C_ombine(t) = C_om(((length(A_s) - 4.45) / (length(A_s) - 3)) * t + 0.84) @{
+    color: "#c74440",
+  }
+
+  C_ombinerev(t) = C_ombine(length(A_s) - 3 - t) @{ color: "#c74440" }
+
+  "The fact that the bridge from curve bottom to curve top used more t-value is a bug; but I'm too tired to fix it."
+
+  n = length(A_s) @{ color: "#2d70b3" }
+
+  t_2 = (t - (n - 1)) / (n - 3) @{ color: "#388c46", hidden: true }
+
+  t_1 = t - (length(A_s) - 3) - 2 @{ color: "#c74440", hidden: true }
+
+  C_urve(t, p) =
+    {
+      0 <= t <= length(A_s) - 3: C_ombine(t),
+      (length(A_s) - 3) * 2 + 2 >= t > length(A_s) - 1:
+      C_ombinerev(t_1) + (0, 5 + p * |s(t_2)|),
+      length(A_s) - 3 < t <= length(A_s) - 1:
+      F_inal + (0, (5 / 2) * (t - (length(A_s) - 3))),
+      (length(A_s) - 3) * 2 + 2 < t:
+      B_egin + (0, 5 * (t - ((length(A_s) - 3) * 2 + 2)))
+    } @{ color: "#2d70b3" }
+
+  t_max = (length(A_s) - 3) * 2 + 3 @{ color: "#2d70b3" }
+
+  C_urve(t, 55) @{
+    color: C_b,
+    lines: @{ opacity: 0.2, width: 2.5 },
+    fill: 0.35 * F_ill,
+    domain: @{ t: @{ min: 0, max: t_max } },
+  }
+
+  C_urve(t, 37) @{
+    color: C_b,
+    lines: @{ opacity: 0.3, width: 2.5 },
+    fill: 0.35 * F_ill,
+    domain: @{ t: @{ min: 0, max: t_max } },
+  }
+
+  C_urve(t, 18) @{
+    color: C_b,
+    lines: @{ opacity: 0.5, width: 2.5 },
+    fill: 0.35 * F_ill,
+    domain: @{ t: @{ min: 0, max: t_max } },
+  }
+
+  B_egin = C_ombine(0) @{ color: "#388c46", hidden: true }
+
+  F_inal = C_ombine(length(A_s) - 3) @{ color: "#388c46", hidden: true }
+
+  C_b = hsv(188, 20, 100) @{ color: "#388c46" }
+
+  s_1(x) =
+    (sum n=(0 ... 10) ((1 / 2 ^ n) * sin(pi * r * 2 ^ n * x) * sin(pi * x))) @{
+    color: "#2d70b3",
+    hidden: true,
+  }
+
+  s(x) = s_1(x - a_p) @{ color: "#388c46", hidden: true }
+
+  a_p = 1 @{ color: "#fa7e19", slider: @{ step: 1 } }
+
+  r = 4.87 @{ color: "#6042a6", hidden: true }
+}
+
+folder "bezierpen: Infrastructure for Bezier Design" {
+  D_raw =
+    A_s -> join(A_s, A),
+    B_s -> join(B_s, B),
+    C_s -> join(C_s, C),
+    D_s -> join(D_s, D),
+    A -> D,
+    D -> (D.x + 1, D.y + 1),
+    X_fs1 -> -X_fs2, Y_fs1 -> -Y_fs2, X_fs2 -> 10, Y_fs2 -> 10 @{
+    color: "#2d70b3",
+  }
+
+  U_ndo =
+    A -> A_s[length(A_s)],
+    X_fs1 -> (B_s[length(B_s)]).x - (A_s[length(A_s)]).x,
+    Y_fs1 -> (B_s[length(B_s)]).y - (A_s[length(A_s)]).y,
+    X_fs2 -> (C_s[length(C_s)]).x - (D_s[length(D_s)]).x,
+    Y_fs2 -> (C_s[length(C_s)]).y - (D_s[length(D_s)]).y,
+    D -> D_s[length(D_s)],
+    A_s -> {length(A_s) = 1: [], A_s[1 ... length(A_s) - 1]},
+    B_s -> {length(B_s) = 1: [], B_s[1 ... length(B_s) - 1]},
+    C_s -> {length(C_s) = 1: [], C_s[1 ... length(C_s) - 1]},
+    D_s -> {length(D_s) = 1: [], D_s[1 ... length(D_s) - 1]} @{
+    color: "#c74440",
+  }
+
+  C_lear = A_s -> [], B_s -> [], C_s -> [], D_s -> [] @{ color: "#000000" }
+
+  B_ezier(A, B, C, D, t) =
+    (
+      (1 - t) ^ 3 * A.x + 3 * t(1 - t) ^ 2 * B.x + 3 * t ^ 2 * (1 - t) * C.x +
+        t ^ 3 * D.x,
+      (1 - t) ^ 3 * A.y + 3 * t(1 - t) ^ 2 * B.y + 3 * t ^ 2 * (1 - t) * C.y +
+        t ^ 3 * D.y
+    ) @{ color: "#c74440" }
+
+  X_fs1 = 4.2 @{ color: "#6042a6", slider: @{ min: -119.3, max: 41.7 } }
+
+  X_fs2 = 10 @{ color: "#c74440", slider: @{ min: -19.3, max: 39.7 } }
+
+  Y_fs1 = 8.7 @{ color: "#000000", slider: @{ min: -88, max: 30 } }
+
+  Y_fs2 = 10 @{ color: "#2d70b3", slider: @{ min: -32 } }
+
+  A = (-232, -108) @{ color: "#2d70b3", hidden: true }
+
+  B = (A.x + X_fs1, A.y + Y_fs1) @{ color: "#388c46", hidden: true }
+
+  C = (D.x + X_fs2, D.y + Y_fs2) @{ color: "#6042a6", hidden: true }
+
+  D = (-231, -107) @{ color: "#fa7e19", hidden: true }
+
+  B_ezier(A, B, C, D, t) @{ color: "#fa7e19", hidden: true }
+
+  polygon(A, B) @{ color: "#2d70b3", hidden: true }
+
+  polygon(C, D) @{ color: "#388c46", hidden: true }
+
+  polygon(A_s, B_s) @{ color: "#2d70b3", hidden: true }
+
+  polygon(C_s, D_s) @{ color: "#388c46", hidden: true }
+
+  A_s =
+    [(-232.5, -200), (-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (267, -248), (-242, -286)] @{
+    color: "#388c46",
+    hidden: true,
+  }
+
+  B_s =
+    [(-207.5, -200.7), (-149.7, -75.4), (-93.1, -65.4), (-48.6, -66.3), (-10.5, -72), (33.4, -28.9), (91.9, -44), (147.8, 32.5), (181.7, 152.5), (257, -258), (-252, -296)] @{
+    color: "#6042a6",
+    hidden: true,
+  }
+
+  C_s =
+    [(-190.1, -150), (-118.3, -73.4), (-78.4, -78), (-32, -91.6), (3.4, -69.4), (41.3, -68), (105.7, -21.5), (169.7, 59.5), (277, -238), (-232, -276), (-236.2, -116.7)] @{
+    color: "#fa7e19",
+    hidden: true,
+  }
+
+  D_s =
+    [(-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (267, -248), (-242, -286), (-232.5, -200)] @{
+    color: "#c74440",
+    hidden: true,
+  }
+
+  B_ezier(
+    A_s[floor(t + 1)],
+    B_s[floor(t + 1)],
+    C_s[floor(t + 1)],
+    D_s[floor(t + 1)],
+    t - floor(t)
+  ) @{
+    color: "#000000",
+    lines: @{ width: 0 },
+    fill: 1,
+    domain: @{ t: @{ min: 0, max: length(A_s) } },
+  }
+
+  C_olor3 = hsv([720 / length(A_s), 2 * (720 / length(A_s)) ... 720], 1, 1) @{
+    color: "#c74440",
+  }
+}
+
+y <= -120 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+
+a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
+  color: "#6042a6",
+  hidden: true,
+}
+
+d = [10, 74, 66, 6, 6, 55, 32, 15, 5, 5, 5, 5, 6, 6] @{
+  color: "#000000",
+  hidden: true,
+}
+
+b = [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460] @{
+  color: "#c74440",
+  hidden: true,
+}
+
+I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
+
+C_olor =
+  hsv(
+    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.1,
+    1
+  ) @{ color: "#c74440" }
+
+C_olor2 =
+  hsv(
+    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.3,
+    1
+  ) @{ color: "#6042a6" }
+
+folder "Designer" {
+  table {
+    a = [] @{ color: "#c74440", hidden: true }
+
+    b = [] @{ color: "#2d70b3", hidden: true }
+
+    c = [] @{ color: "#388c46", hidden: true }
+
+    d = [] @{ color: "#6042a6", hidden: true }
+  }
+
+  S_tampMid =
+    a -> join(a, 0), b -> join(b, B_p), c -> join(c, C_p), d -> join(d, D_p) @{
+    color: "#c74440",
+  }
+
+  S_tampMidPre =
+    a -> join(0, a), b -> join(B_p, b), c -> join(C_p, c), d -> join(D_p, d) @{
+    color: "#388c46",
+  }
+
+  S_tampSym =
+    a -> join(a, [A_p, -A_p]),
+    b -> join(b, [B_p, B_p]),
+    c -> join(c, [C_p, C_p]), d -> join(d, [D_p, D_p]) @{ color: "#c74440" }
+
+  S_tampSymPre =
+    a -> join([A_p, -A_p], a),
+    b -> join([B_p, B_p], b),
+    c -> join([C_p, C_p], c), d -> join([D_p, D_p], d) @{ color: "#6042a6" }
+
+  "To use designer, enable 3 lines below:"
+
+  y = C_p * I_ceCastle((x - A_p) / D_p) + B_p * {y >= 0} @{
+    color: "#c74440",
+    hidden: true,
+    fill: 1,
+  }
+
+  (A_p, B_p) @{ color: "#c74440", hidden: true }
+
+  (A_p + D_p, B_p + C_p) @{ color: "#000000", hidden: true }
+
+  C_p = 68 @{ color: "#c74440", hidden: true, slider: @{ min: 0, max: 205 } }
+
+  D_p = 10 @{ color: "#2d70b3", hidden: true, slider: @{ min: 0, max: 3480 } }
+
+  B_p = 253 @{
+    color: "#000000",
+    hidden: true,
+    slider: @{ min: -67.4, max: 2890 },
+  }
+
+  A_p = -516 @{
+    color: "#6042a6",
+    hidden: true,
+    slider: @{ min: -1660, max: 1900 },
+  }
+}
+
+B_ezier(
+  A_s[floor(t + 1)],
+  B_s[floor(t + 1)],
+  C_s[floor(t + 1)],
+  D_s[floor(t + 1)],
+  t - floor(t)
+) @{
+  color: C_b,
+  lines: @{ opacity: 0.9, width: 2 },
+  domain: @{ t: @{ min: 0, max: length(A_s) - 3 } },
+}
