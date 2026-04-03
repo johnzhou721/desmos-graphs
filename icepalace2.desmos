@@ -1,10 +1,10 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -816.8210620379742,
-    xmax: 756.1241060479725,
-    ymin: -203.3061391827946,
-    ymax: 913.638638155109,
+    xmin: -1010.7755902357678,
+    xmax: 875.9137678712223,
+    ymin: -492.07558641082915,
+    ymax: 1110.4893076757612,
   },
 }
 
@@ -41,7 +41,7 @@ y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
 
 "We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
--120 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 * F_ill }
+-140 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 * F_ill }
 
 folder "Glow" {
   C_om(t) =
@@ -80,21 +80,35 @@ folder "Glow" {
 
   t_max = (length(A_s) - 3) * 2 + 3 @{ color: "#2d70b3" }
 
-  C_urve(t, 55) @{
+  C_urve(t, 110) @{
+    color: C_b,
+    lines: @{ opacity: 0.05, width: 2.5 },
+    fill: 0.1,
+    domain: @{ t: @{ min: 0, max: t_max } },
+  }
+
+  C_urve(t, 90) @{
+    color: C_b,
+    lines: @{ opacity: 0.1, width: 2.5 },
+    fill: 0.25 * F_ill,
+    domain: @{ t: @{ min: 0, max: t_max } },
+  }
+
+  C_urve(t, 70) @{
     color: C_b,
     lines: @{ opacity: 0.2, width: 2.5 },
     fill: 0.35 * F_ill,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
-  C_urve(t, 37) @{
+  C_urve(t, 50) @{
     color: C_b,
     lines: @{ opacity: 0.3, width: 2.5 },
     fill: 0.35 * F_ill,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
-  C_urve(t, 18) @{
+  C_urve(t, 30) @{
     color: C_b,
     lines: @{ opacity: 0.5, width: 2.5 },
     fill: 0.35 * F_ill,
@@ -105,7 +119,7 @@ folder "Glow" {
 
   F_inal = C_ombine(length(A_s) - 3) @{ color: "#388c46", hidden: true }
 
-  C_b = hsv(188, 20, 100) @{ color: "#388c46" }
+  C_b = hsv(200, 1, 1) @{ color: "#388c46" }
 
   s_1(x) =
     (sum n=(0 ... 10) ((1 / 2 ^ n) * sin(pi * r * 2 ^ n * x) * sin(pi * x))) @{
@@ -224,7 +238,7 @@ folder "bezierpen: Infrastructure for Bezier Design" {
   }
 }
 
-y <= -120 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+y <= -140 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
 
 a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
   color: "#6042a6",
@@ -245,9 +259,9 @@ I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
 
 C_olor =
   hsv(
-    I_nt([0, 1 / length(a) ... 1], 267, 203),
+    I_nt([0, 1 / length(a) ... 1], 267, 203) - 7,
     I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.1,
-    1
+    0.85
   ) @{ color: "#c74440" }
 
 C_olor2 =
