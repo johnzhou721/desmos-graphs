@@ -1,17 +1,17 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -804.24927772946,
-    xmax: 758.7479594826826,
-    ymin: -234.90009534995875,
-    ymax: 947.7992808666431,
+    xmin: -855.6553611970835,
+    xmax: 805.0292033408207,
+    ymin: -231.25124492221164,
+    ymax: 946.9099594594007,
   },
   lockViewport: true,
 }
 
-ticker t_9 -> t_9 + 0.02 @{ minStep: 10 }
+ticker t_9 -> t_9 + 0.02 @{ minStep: 3.3 }
 
-t_9 = 5.41 @{
+t_9 = 200.35 @{
   color: "#388c46",
   hidden: true,
   slider: @{
