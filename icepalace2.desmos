@@ -1,25 +1,28 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -577.7196440221084,
-    xmax: 567.2867646440671,
-    ymin: -2133.110510014313,
-    ymax: 2882.017559943535,
+    xmin: -804.24927772946,
+    xmax: 758.7479594826826,
+    ymin: -234.90009534995875,
+    ymax: 947.7992808666431,
   },
+  lockViewport: true,
 }
 
-ticker t_9 -> t_9 + 0.03 @{ minStep: 10 }
+ticker t_9 -> t_9 + 0.02 @{ minStep: 10 }
 
-t_9 = 0 @{
+t_9 = 5.41 @{
   color: "#388c46",
   hidden: true,
   slider: @{
     loopMode: "LOOP_FORWARD",
     period: 2666.6666666666665,
     min: pi / 2,
-    max: 52.94,
+    max: 210.4307963267949,
   },
 }
+
+A_dvance = t_9 -> t_9 + 0.03 @{ color: "#2d70b3" }
 
 I_ceCastle(x) =
   {
@@ -41,19 +44,17 @@ polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
 
 y <= f_f(x) @{
   color: C_olor2,
-  lines: @{ opacity: 0.7, width: 4 },
+  lines: @{ opacity: 0.7, width: 5 },
   fill: 2 ^ -99,
 }
 
-y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
-
 "We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
--140 <= y <= f_f(x) @{
-  color: C_olor,
-  lines: @{ width: 0 },
-  fill: 0.7 * F_ill * 0.9 + 0.05 * sin((3 / 5) * t_9),
-}
+y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
+
+F_ill1 = 0.7 * F_ill * (0.9 + 0.05 * sin(15 * t_9)) @{ color: "#2d70b3" }
+
+-140 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: F_ill1 }
 
 folder "Glow" {
   C_om(t) =
@@ -92,38 +93,42 @@ folder "Glow" {
 
   t_max = (length(A_s) - 3) * 2 + 3 @{ color: "#2d70b3" }
 
+  T = (1 + 0.05 * sin((2 / 7) * t_9 + pi / 16) + 0.14 * sin(10 * t_9)) / 1.2 @{
+    color: "#388c46",
+  }
+
   C_urve(t, 110) @{
     color: C_b,
-    lines: @{ opacity: 0.05, width: 2.5 },
-    fill: 0.1,
+    lines: @{ opacity: 0.05 * (1 - F_ill), width: 2.5 },
+    fill: 0.2 * T,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 90) @{
     color: C_b,
-    lines: @{ opacity: 0.1, width: 2.5 },
-    fill: 0.25 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
+    lines: @{ opacity: 0.1 * (1 - F_ill), width: 2.5 },
+    fill: 0.3 * F_ill * T,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 70) @{
     color: C_b,
-    lines: @{ opacity: 0.2, width: 2.5 },
-    fill: 0.35 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
+    lines: @{ opacity: 0.2 * (1 - F_ill), width: 2.5 },
+    fill: 0.4 * F_ill * T,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 50) @{
     color: C_b,
-    lines: @{ opacity: 0.3, width: 2.5 },
-    fill: 0.35 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
+    lines: @{ opacity: 0.3 * (1 - F_ill), width: 2.5 },
+    fill: 0.5 * F_ill * T,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 30) @{
     color: C_b,
-    lines: @{ opacity: 0.5, width: 2.5 },
-    fill: 0.35 * F_ill * (0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
+    lines: @{ opacity: 0.5 * (1 - F_ill), width: 2.5 },
+    fill: 0.6 * F_ill * T,
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
@@ -131,7 +136,7 @@ folder "Glow" {
 
   F_inal = C_ombine(length(A_s) - 3) @{ color: "#388c46", hidden: true }
 
-  C_b = hsv(200, 1, 1) @{ color: "#388c46" }
+  C_b = hsv(208, 1, 1) @{ color: "#388c46" }
 
   s_1(x) =
     (sum n=(0 ... 10) ((1 / 2 ^ n) * sin(pi * r * 2 ^ n * x) * sin(pi * x))) @{
@@ -278,7 +283,7 @@ t_6 = mod(x, pi) @{ color: "#388c46", hidden: true }
 
 p(x) =
   {
-    0 <= t_6 < 0.75 * pi: sin(t_6 / 0.75) ^ 0.4,
+    0 <= t_6 < 0.75 * pi: sin(t_6 / 0.75) ^ 0.6,
     -0.7 * sin((t_6 - 0.75 * pi) / 0.25) ^ 0.6
   } +
     0.2 @{ color: "#c74440", hidden: true }
@@ -355,16 +360,16 @@ folder "Designer" {
     hidden: true,
     slider: @{ min: -1660, max: 1900 },
   }
-}
 
-B_ezier(
-  A_s[floor(t + 1)],
-  B_s[floor(t + 1)],
-  C_s[floor(t + 1)],
-  D_s[floor(t + 1)],
-  t - floor(t)
-) @{
-  color: C_b,
-  lines: @{ opacity: 0.9, width: 2 },
-  domain: @{ t: @{ min: 0, max: length(A_s) - 3 } },
+  B_ezier(
+    A_s[floor(t + 1)],
+    B_s[floor(t + 1)],
+    C_s[floor(t + 1)],
+    D_s[floor(t + 1)],
+    t - floor(t)
+  ) @{
+    color: C_b,
+    lines: @{ opacity: 0.9, width: 6 },
+    domain: @{ t: @{ min: 0, max: length(A_s) - 3 } },
+  }
 }
