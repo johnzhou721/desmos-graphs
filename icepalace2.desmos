@@ -9,7 +9,7 @@ settings @{
   lockViewport: true,
 }
 
-ticker t_9 -> t_9 + 0.02 @{ minStep: 3.3 }
+ticker t_9 -> t_9 + 0.02 @{ minStep: 90 }
 
 t_9 = 200.35 @{
   color: "#388c46",
