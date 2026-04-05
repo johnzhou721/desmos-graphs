@@ -1,10 +1,23 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -751.6652374265796,
-    xmax: 707.5645028414879,
-    ymin: -219.85335493490538,
-    ymax: 965.4317686657369,
+    xmin: -577.7196440221084,
+    xmax: 567.2867646440671,
+    ymin: -2133.110510014313,
+    ymax: 2882.017559943535,
+  },
+}
+
+ticker t_9 -> t_9 + 0.03 @{ minStep: 10 }
+
+t_9 = 0 @{
+  color: "#388c46",
+  hidden: true,
+  slider: @{
+    loopMode: "LOOP_FORWARD",
+    period: 2666.6666666666665,
+    min: pi / 2,
+    max: 52.94,
   },
 }
 
@@ -18,11 +31,6 @@ I_ceCastle(x) =
   } @{ color: "#000000", hidden: true }
 
 f_f(x) = c * I_ceCastle((x - a) / d) + b @{ color: "#2d70b3", hidden: true }
-
-c = [68, 24, 40, 40, 37, 14, 50, 15, 15, 18, 18, 18, 53, 53] @{
-  color: "#388c46",
-  hidden: true,
-}
 
 F_ill = 1 @{ color: "#388c46", slider: @{ min: 0, max: 1, step: 1 } }
 
@@ -41,7 +49,11 @@ y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
 
 "We only outline outside... so the next line basically hides the lines that went inside at the last line.  But the opacity is 0.4, so the inner parts still kind of glow."
 
--140 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: 0.7 * F_ill }
+-140 <= y <= f_f(x) @{
+  color: C_olor,
+  lines: @{ width: 0 },
+  fill: 0.7 * F_ill * 0.9 + 0.05 * sin((3 / 5) * t_9),
+}
 
 folder "Glow" {
   C_om(t) =
@@ -90,28 +102,28 @@ folder "Glow" {
   C_urve(t, 90) @{
     color: C_b,
     lines: @{ opacity: 0.1, width: 2.5 },
-    fill: 0.25 * F_ill,
+    fill: 0.25 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 70) @{
     color: C_b,
     lines: @{ opacity: 0.2, width: 2.5 },
-    fill: 0.35 * F_ill,
+    fill: 0.35 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 50) @{
     color: C_b,
     lines: @{ opacity: 0.3, width: 2.5 },
-    fill: 0.35 * F_ill,
+    fill: 0.35 * F_ill(0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
   C_urve(t, 30) @{
     color: C_b,
     lines: @{ opacity: 0.5, width: 2.5 },
-    fill: 0.35 * F_ill,
+    fill: 0.35 * F_ill * (0.85 + 0.075 * sin((2 / 7) * t_9 + pi / 16)),
     domain: @{ t: @{ min: 0, max: t_max } },
   }
 
@@ -134,7 +146,7 @@ folder "Glow" {
   r = 4.87 @{ color: "#6042a6", hidden: true }
 }
 
-folder "bezierpen: Infrastructure for Bezier Design" {
+folder "bezierpen: Infrastructure for Bezier Design and occlusion" {
   D_raw =
     A_s -> join(A_s, A),
     B_s -> join(B_s, B),
@@ -236,7 +248,7 @@ folder "bezierpen: Infrastructure for Bezier Design" {
   C_olor3 = hsv([720 / length(A_s), 2 * (720 / length(A_s)) ... 720], 1, 1) @{
     color: "#c74440",
   }
-}
+} @{ collapsed: true }
 
 y <= -140 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
 
@@ -250,6 +262,11 @@ d = [10, 74, 66, 6, 6, 55, 32, 15, 5, 5, 5, 5, 6, 6] @{
   hidden: true,
 }
 
+c = [68, 24, 40, 40, 40, 14, 50, 15, 18, 18, 18, 18, 53, 53] @{
+  color: "#388c46",
+  hidden: true,
+}
+
 b = [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460] @{
   color: "#c74440",
   hidden: true,
@@ -257,17 +274,26 @@ b = [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460] @{
 
 I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
 
+t_6 = mod(x, pi) @{ color: "#388c46", hidden: true }
+
+p(x) =
+  {
+    0 <= t_6 < 0.75 * pi: sin(t_6 / 0.75) ^ 0.4,
+    -0.7 * sin((t_6 - 0.75 * pi) / 0.25) ^ 0.6
+  } +
+    0.2 @{ color: "#c74440", hidden: true }
+
 C_olor =
   hsv(
-    I_nt([0, 1 / length(a) ... 1], 267, 203) - 7,
-    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.1,
+    I_nt([0, 1 / length(a) ... 1], 228 + 32 * p(t_9), 228 - 32 * p(t_9)),
+    I_nt([0, 1 / length(a) ... 1], 0.4, 0.62),
     1
   ) @{ color: "#c74440" }
 
 C_olor2 =
   hsv(
-    I_nt([0, 1 / length(a) ... 1], 267, 203),
-    I_nt([0, 1 / length(a) ... 1], 0.5, 0.72) - 0.3,
+    I_nt([0, 1 / length(a) ... 1], 235 + 32 * p(t_9), 235 - 32 * p(t_9)),
+    I_nt([0, 1 / length(a) ... 1], 0.2, 0.42),
     1
   ) @{ color: "#6042a6" }
 
