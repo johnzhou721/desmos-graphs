@@ -1,17 +1,16 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -855.6553611970835,
-    xmax: 805.0292033408207,
-    ymin: -231.25124492221164,
-    ymax: 946.9099594594007,
+    xmin: -1598.1217556793947,
+    xmax: 1446.8027981882558,
+    ymin: -905.7470252909154,
+    ymax: 1199.6834019878272,
   },
-  lockViewport: true,
 }
 
 ticker t_9 -> t_9 + 0.02 @{ minStep: 90 }
 
-t_9 = 200.35 @{
+t_9 = 1.5707963267948966 @{
   color: "#388c46",
   hidden: true,
   slider: @{
@@ -54,7 +53,9 @@ y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
 
 F_ill1 = 0.7 * F_ill * (0.9 + 0.05 * sin(15 * t_9)) @{ color: "#2d70b3" }
 
--140 <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: F_ill1 }
+L_imit = -600 @{ color: "#6042a6" }
+
+L_imit <= y <= f_f(x) @{ color: C_olor, lines: @{ width: 0 }, fill: F_ill1 }
 
 folder "Glow" {
   C_om(t) =
@@ -66,9 +67,11 @@ folder "Glow" {
       t - floor(t)
     ) @{ color: "#000000" }
 
-  C_ombine(t) = C_om(((length(A_s) - 4.45) / (length(A_s) - 3)) * t + 0.84) @{
+  C_ombine(t) = C_om(((length(A_s) - u) / (length(A_s) - 3)) * t + 0.84) @{
     color: "#c74440",
   }
+
+  u = 16.5 @{ color: "#c74440", hidden: true, slider: @{ max: 100 } }
 
   C_ombinerev(t) = C_ombine(length(A_s) - 3 - t) @{ color: "#c74440" }
 
@@ -149,130 +152,44 @@ folder "Glow" {
   a_p = 1 @{ color: "#fa7e19", slider: @{ step: 1 } }
 
   r = 4.87 @{ color: "#6042a6", hidden: true }
-}
-
-folder "bezierpen: Infrastructure for Bezier Design and occlusion" {
-  D_raw =
-    A_s -> join(A_s, A),
-    B_s -> join(B_s, B),
-    C_s -> join(C_s, C),
-    D_s -> join(D_s, D),
-    A -> D,
-    D -> (D.x + 1, D.y + 1),
-    X_fs1 -> -X_fs2, Y_fs1 -> -Y_fs2, X_fs2 -> 10, Y_fs2 -> 10 @{
-    color: "#2d70b3",
-  }
-
-  U_ndo =
-    A -> A_s[length(A_s)],
-    X_fs1 -> (B_s[length(B_s)]).x - (A_s[length(A_s)]).x,
-    Y_fs1 -> (B_s[length(B_s)]).y - (A_s[length(A_s)]).y,
-    X_fs2 -> (C_s[length(C_s)]).x - (D_s[length(D_s)]).x,
-    Y_fs2 -> (C_s[length(C_s)]).y - (D_s[length(D_s)]).y,
-    D -> D_s[length(D_s)],
-    A_s -> {length(A_s) = 1: [], A_s[1 ... length(A_s) - 1]},
-    B_s -> {length(B_s) = 1: [], B_s[1 ... length(B_s) - 1]},
-    C_s -> {length(C_s) = 1: [], C_s[1 ... length(C_s) - 1]},
-    D_s -> {length(D_s) = 1: [], D_s[1 ... length(D_s) - 1]} @{
-    color: "#c74440",
-  }
-
-  C_lear = A_s -> [], B_s -> [], C_s -> [], D_s -> [] @{ color: "#000000" }
-
-  B_ezier(A, B, C, D, t) =
-    (
-      (1 - t) ^ 3 * A.x + 3 * t(1 - t) ^ 2 * B.x + 3 * t ^ 2 * (1 - t) * C.x +
-        t ^ 3 * D.x,
-      (1 - t) ^ 3 * A.y + 3 * t(1 - t) ^ 2 * B.y + 3 * t ^ 2 * (1 - t) * C.y +
-        t ^ 3 * D.y
-    ) @{ color: "#c74440" }
-
-  X_fs1 = 4.2 @{ color: "#6042a6", slider: @{ min: -119.3, max: 41.7 } }
-
-  X_fs2 = 10 @{ color: "#c74440", slider: @{ min: -19.3, max: 39.7 } }
-
-  Y_fs1 = 8.7 @{ color: "#000000", slider: @{ min: -88, max: 30 } }
-
-  Y_fs2 = 10 @{ color: "#2d70b3", slider: @{ min: -32 } }
-
-  A = (-232, -108) @{ color: "#2d70b3", hidden: true }
-
-  B = (A.x + X_fs1, A.y + Y_fs1) @{ color: "#388c46", hidden: true }
-
-  C = (D.x + X_fs2, D.y + Y_fs2) @{ color: "#6042a6", hidden: true }
-
-  D = (-231, -107) @{ color: "#fa7e19", hidden: true }
-
-  B_ezier(A, B, C, D, t) @{ color: "#fa7e19", hidden: true }
-
-  polygon(A, B) @{ color: "#2d70b3", hidden: true }
-
-  polygon(C, D) @{ color: "#388c46", hidden: true }
-
-  polygon(A_s, B_s) @{ color: "#2d70b3", hidden: true }
-
-  polygon(C_s, D_s) @{ color: "#388c46", hidden: true }
-
-  A_s =
-    [(-232.5, -200), (-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (267, -248), (-242, -286)] @{
-    color: "#388c46",
-    hidden: true,
-  }
-
-  B_s =
-    [(-207.5, -200.7), (-149.7, -75.4), (-93.1, -65.4), (-48.6, -66.3), (-10.5, -72), (33.4, -28.9), (91.9, -44), (147.8, 32.5), (181.7, 152.5), (257, -258), (-252, -296)] @{
-    color: "#6042a6",
-    hidden: true,
-  }
-
-  C_s =
-    [(-190.1, -150), (-118.3, -73.4), (-78.4, -78), (-32, -91.6), (3.4, -69.4), (41.3, -68), (105.7, -21.5), (169.7, 59.5), (277, -238), (-232, -276), (-236.2, -116.7)] @{
-    color: "#fa7e19",
-    hidden: true,
-  }
-
-  D_s =
-    [(-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (267, -248), (-242, -286), (-232.5, -200)] @{
-    color: "#c74440",
-    hidden: true,
-  }
-
-  B_ezier(
-    A_s[floor(t + 1)],
-    B_s[floor(t + 1)],
-    C_s[floor(t + 1)],
-    D_s[floor(t + 1)],
-    t - floor(t)
-  ) @{
-    color: "#000000",
-    lines: @{ width: 0 },
-    fill: 1,
-    domain: @{ t: @{ min: 0, max: length(A_s) } },
-  }
-
-  C_olor3 = hsv([720 / length(A_s), 2 * (720 / length(A_s)) ... 720], 1, 1) @{
-    color: "#c74440",
-  }
 } @{ collapsed: true }
 
-y <= -140 @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+B_ezier(
+  A_s[floor(t + 1)],
+  B_s[floor(t + 1)],
+  C_s[floor(t + 1)],
+  D_s[floor(t + 1)],
+  t - floor(t)
+) @{
+  color: "#000000",
+  lines: @{ width: 0 },
+  fill: 1,
+  domain: @{ t: @{ min: 0, max: length(A_s) } },
+}
 
-a = [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78] @{
+y <= L_imit @{ color: "#000000", lines: @{ width: 0 }, fill: 1 }
+
+"a has been manually tweaked to make the side things look visually balanced"
+
+a =
+  [0, 0, 0, -83, 83, 0, 0, 0, -41, 41, -116, 116, -78, 78, -230, 210, -155, 155] @{
   color: "#6042a6",
   hidden: true,
 }
 
-d = [10, 74, 66, 6, 6, 55, 32, 15, 5, 5, 5, 5, 6, 6] @{
+d = [10, 74, 66, 6, 6, 55, 32, 15, 5, 5, 5, 5, 6, 6, 4, 4, 17, 17] @{
   color: "#000000",
   hidden: true,
 }
 
-c = [68, 24, 40, 40, 40, 14, 50, 15, 18, 18, 18, 18, 53, 53] @{
+c =
+  [68, 24, 40, 40, 40, 14, 50, 15, 18, 18, 18, 18, 53, 53, 86, 86, 100, 100] @{
   color: "#388c46",
   hidden: true,
 }
 
-b = [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460] @{
+b =
+  [605, 169, 213, 171, 171, 313, 281, 553, 493, 493, 216, 216, 460, 460, 198, 198, -67.4, -67.4] @{
   color: "#c74440",
   hidden: true,
 }
@@ -290,14 +207,14 @@ p(x) =
 
 C_olor =
   hsv(
-    I_nt([0, 1 / length(a) ... 1], 228 + 32 * p(t_9), 228 - 32 * p(t_9)),
+    I_nt([0, 0.8 / length(a) ... 0.8], 228 + 32 * p(t_9), 228 - 32 * p(t_9)),
     I_nt([0, 1 / length(a) ... 1], 0.4, 0.62),
     1
   ) @{ color: "#c74440" }
 
 C_olor2 =
   hsv(
-    I_nt([0, 1 / length(a) ... 1], 235 + 32 * p(t_9), 235 - 32 * p(t_9)),
+    I_nt([0, 0.8 / length(a) ... 0.8], 235 + 32 * p(t_9), 235 - 32 * p(t_9)),
     I_nt([0, 1 / length(a) ... 1], 0.2, 0.42),
     1
   ) @{ color: "#6042a6" }
@@ -335,7 +252,7 @@ folder "Designer" {
 
   "To use designer, enable 3 lines below:"
 
-  y = C_p * I_ceCastle((x - A_p) / D_p) + B_p * {y >= 0} @{
+  y = C_p * I_ceCastle((x - A_p) / D_p) + B_p @{
     color: "#c74440",
     hidden: true,
     fill: 1,
@@ -343,23 +260,27 @@ folder "Designer" {
 
   (A_p, B_p) @{ color: "#c74440", hidden: true }
 
-  (A_p + D_p, B_p + C_p) @{ color: "#000000", hidden: true }
+  (A_p + D_p, B_p + C_p) @{ color: "#6042a6", hidden: true }
 
-  C_p = 68 @{ color: "#c74440", hidden: true, slider: @{ min: 0, max: 205 } }
+  C_p = 100 @{ color: "#c74440", hidden: true, slider: @{ min: 0, max: 205 } }
 
-  D_p = 10 @{ color: "#2d70b3", hidden: true, slider: @{ min: 0, max: 3480 } }
+  D_p = 17 @{ color: "#2d70b3", hidden: true, slider: @{ min: 0, max: 3480 } }
 
-  B_p = 253 @{
+  B_p = -67.4 @{
     color: "#000000",
     hidden: true,
     slider: @{ min: -67.4, max: 2890 },
   }
 
-  A_p = -516 @{
+  A_p = -733 @{
     color: "#6042a6",
     hidden: true,
     slider: @{ min: -1660, max: 1900 },
   }
+
+  t_m = mod(t, length(A_s)) @{ color: "#2d70b3", hidden: true }
+
+  mod(-1, length(A_s)) @{ color: "#388c46" }
 
   B_ezier(
     A_s[floor(t + 1)],
@@ -368,8 +289,127 @@ folder "Designer" {
     D_s[floor(t + 1)],
     t - floor(t)
   ) @{
+    color: B_r,
+    lines: @{  },
+    fill: 1,
+    domain: @{ t: @{ min: 0, max: length(A_s) } },
+  }
+
+  B_ezier(
+    A_s[floor(t_m + 1)],
+    B_s[floor(t_m + 1)],
+    C_s[floor(t_m + 1)],
+    D_s[floor(t_m + 1)],
+    t_m - floor(t_m)
+  ) @{
     color: C_b,
     lines: @{ opacity: 0.9, width: 6 },
-    domain: @{ t: @{ min: 0, max: length(A_s) - 3 } },
+    domain: @{ t: @{ min: -0.2, max: length(A_s) - 13.9 } },
   }
 }
+
+folder "bezierpen: Infrastructure for Bezier Design and occlusion" {
+  D_raw =
+    A_s -> join(A_s, A),
+    B_s -> join(B_s, B),
+    C_s -> join(C_s, C),
+    D_s -> join(D_s, D),
+    A -> D,
+    D -> (D.x + 1, D.y + 1),
+    X_fs1 -> -X_fs2, Y_fs1 -> -Y_fs2, X_fs2 -> 10, Y_fs2 -> 10 @{
+    color: "#2d70b3",
+  }
+
+  U_ndo =
+    A -> A_s[length(A_s)],
+    X_fs1 -> (B_s[length(B_s)]).x - (A_s[length(A_s)]).x,
+    Y_fs1 -> (B_s[length(B_s)]).y - (A_s[length(A_s)]).y,
+    X_fs2 -> (C_s[length(C_s)]).x - (D_s[length(D_s)]).x,
+    Y_fs2 -> (C_s[length(C_s)]).y - (D_s[length(D_s)]).y,
+    D -> D_s[length(D_s)],
+    A_s -> {length(A_s) = 1: [], A_s[1 ... length(A_s) - 1]},
+    B_s -> {length(B_s) = 1: [], B_s[1 ... length(B_s) - 1]},
+    C_s -> {length(C_s) = 1: [], C_s[1 ... length(C_s) - 1]},
+    D_s -> {length(D_s) = 1: [], D_s[1 ... length(D_s) - 1]} @{
+    color: "#c74440",
+  }
+
+  C_lear = A_s -> [], B_s -> [], C_s -> [], D_s -> [] @{ color: "#000000" }
+
+  B_ezier(A, B, C, D, t) =
+    (
+      (1 - t) ^ 3 * A.x + 3 * t(1 - t) ^ 2 * B.x + 3 * t ^ 2 * (1 - t) * C.x +
+        t ^ 3 * D.x,
+      (1 - t) ^ 3 * A.y + 3 * t(1 - t) ^ 2 * B.y + 3 * t ^ 2 * (1 - t) * C.y +
+        t ^ 3 * D.y -
+        S_lide
+    ) @{ color: "#c74440" }
+
+  X_fs1 = 68.7 @{ color: "#6042a6", slider: @{ max: 60 } }
+
+  X_fs2 = 10 @{ color: "#c74440", slider: @{ max: 14 } }
+
+  Y_fs1 = 4.5 @{ color: "#000000", slider: @{ min: -42, max: 299 } }
+
+  Y_fs2 = 10 @{ color: "#2d70b3", slider: @{ min: -462, max: 192 } }
+
+  "Change this to 0 when designing"
+
+  S_lide = 200 @{ color: "#388c46", slider: @{ min: 0, max: 1000 } }
+
+  A = (-232.5, -200) @{ color: "#2d70b3" }
+
+  B = (A.x + X_fs1, A.y + Y_fs1) @{ color: "#388c46" }
+
+  C = (D.x + X_fs2, D.y + Y_fs2) @{ color: "#6042a6" }
+
+  D = (-231.5, -199) @{ color: "#fa7e19" }
+
+  B_ezier(A, B, C, D, t) @{ color: "#fa7e19" }
+
+  polygon(A, B) @{ color: "#2d70b3" }
+
+  polygon(C, D) @{ color: "#388c46" }
+
+  polygon(A_s, B_s) @{ color: "#2d70b3", hidden: true }
+
+  polygon(C_s, D_s) @{ color: "#388c46", hidden: true }
+
+  A_s =
+    [(-232.5, -200), (-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (266, 516), (310, 1013), (440, 1300), (595, 1364), (822, 1293), (834, 1101), (836, 604), (803, -360), (794, -1058), (-217, -1066), (-650, -1050), (-650, -550), (-452, -533), (-322, -328)] @{
+    color: "#388c46",
+    hidden: true,
+  }
+
+  B_s =
+    [(-207.5, -200.7), (-149.7, -75.4), (-93.1, -65.4), (-48.6, -66.3), (-10.5, -72), (33.4, -28.9), (91.9, -44), (147.8, 32.5), (196.7, 186), (266, 661), (355, 1213), (485, 1338), (654, 1360), (823, 1222), (841, 1041), (816, 421), (793, -370), (784, -1068), (-227, -1076), (-633.7, -1045.2), (-549, -491), (-352, -489), (-263.4, -308)] @{
+    color: "#6042a6",
+    hidden: true,
+  }
+
+  C_s =
+    [(-190.1, -150), (-118.3, -73.4), (-78.4, -78), (-32, -91.6), (3.4, -69.4), (41.3, -68), (105.7, -21.5), (169.7, 59.5), (239, 217), (265, 813), (382, 1245), (536, 1368), (821, 1364), (827, 1161), (856, 787), (813, -350), (804, -1048), (-207, -1056), (-666.3, -1054.8), (-751, -609), (-552, -577), (-382, -353), (-301.2, -204.5)] @{
+    color: "#fa7e19",
+    hidden: true,
+  }
+
+  D_s =
+    [(-157.3, -100), (-105.7, -69.4), (-65, -65), (-20, -80), (15, -53.4), (66.6, -56), (128, 8.5), (175.7, 106), (266, 516), (310, 1013), (440, 1300), (595, 1364), (822, 1293), (834, 1101), (836, 604), (803, -360), (794, -1058), (-217, -1066), (-650, -1050), (-650, -550), (-452, -533), (-322, -328), (-232.5, -200)] @{
+    color: "#c74440",
+    hidden: true,
+  }
+
+  C_olor3 = hsv([720 / length(A_s), 2 * (720 / length(A_s)) ... 720], 1, 1) @{
+    color: "#c74440",
+  }
+
+  B_ezier(
+    A_s[floor(t + 1)],
+    B_s[floor(t + 1)],
+    C_s[floor(t + 1)],
+    D_s[floor(t + 1)],
+    t - floor(t)
+  ) @{ color: C_olor3, domain: @{ t: @{ min: 0, max: length(A_s) } } }
+} @{ hidden: true }
+
+B_r = hsv(30, 0.8, 0.3) @{ color: "#c74440" }
