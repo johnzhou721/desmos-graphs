@@ -1,16 +1,16 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -1598.1217556793947,
-    xmax: 1446.8027981882558,
-    ymin: -905.7470252909154,
-    ymax: 1199.6834019878272,
+    xmin: -714.7039261255123,
+    xmax: 669.8195781177359,
+    ymin: -446.11761266779513,
+    ymax: 938.4058915754531,
   },
 }
 
 ticker t_9 -> t_9 + 0.02 @{ minStep: 90 }
 
-t_9 = 1.5707963267948966 @{
+t_9 = 5.47 @{
   color: "#388c46",
   hidden: true,
   slider: @{
@@ -198,23 +198,33 @@ I_nt(t, a, b) = a + t(b - a) @{ color: "#000000" }
 
 t_6 = mod(x, pi) @{ color: "#388c46", hidden: true }
 
+o = 0.6 @{ color: "#c74440" }
+
 p(x) =
   {
-    0 <= t_6 < 0.75 * pi: sin(t_6 / 0.75) ^ 0.6,
-    -0.7 * sin((t_6 - 0.75 * pi) / 0.25) ^ 0.6
+    0 <= t_6 < o * pi: sin(t_6 / o) ^ 0.6,
+    -0.7 * sin((t_6 - o * pi) / (1 - o)) ^ 0.6
   } +
     0.2 @{ color: "#c74440", hidden: true }
 
 C_olor =
   hsv(
-    I_nt([0, 0.8 / length(a) ... 0.8], 228 + 32 * p(t_9), 228 - 32 * p(t_9)),
+    I_nt(
+      [0, 1.05 / length(a) ... 1.05],
+      228 + 32 * p(t_9) + 5 * sin(0.2 * t_9),
+      228 - 32 * p(t_9)
+    ),
     I_nt([0, 1 / length(a) ... 1], 0.4, 0.62),
     1
   ) @{ color: "#c74440" }
 
 C_olor2 =
   hsv(
-    I_nt([0, 0.8 / length(a) ... 0.8], 235 + 32 * p(t_9), 235 - 32 * p(t_9)),
+    I_nt(
+      [0, 1.1 / length(a) ... 1.1],
+      235 + 32 * p(t_9) + 10 * sin(0.5 * t_9),
+      235 - 32 * p(t_9)
+    ),
     I_nt([0, 1 / length(a) ... 1], 0.2, 0.42),
     1
   ) @{ color: "#6042a6" }
@@ -290,7 +300,7 @@ folder "Designer" {
     t - floor(t)
   ) @{
     color: B_r,
-    lines: @{  },
+    lines: @{ opacity: 0.9, width: 2.5 },
     fill: 1,
     domain: @{ t: @{ min: 0, max: length(A_s) } },
   }
