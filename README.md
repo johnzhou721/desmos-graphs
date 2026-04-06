@@ -28,7 +28,7 @@ https://www.desmos.com/calculator/36bbfefc4a
 Something that resembles a notebook shape.  Linear equations only, as it was for a school project.
 
 ## icepalace2.desmos, icepalace.desmos and old/icepalace.desmos (2D)
-https://www.desmos.com/calculator/u5wdigjag5, https://www.desmos.com/calculator/lautf1iuni and https://www.desmos.com/calculator/0qaurut1xd
+https://www.desmos.com/calculator/rdh0p4lyoc, https://www.desmos.com/calculator/lautf1iuni and https://www.desmos.com/calculator/0qaurut1xd
 
 NOTE: The last link and the old/ file is no longer updated or improved.  These were a 1-liner party trick I did.
 
