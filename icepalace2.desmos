@@ -8,9 +8,9 @@ settings @{
   },
 }
 
-ticker t_9 -> t_9 + 0.02 @{ minStep: 90 }
+ticker t_9 -> t_9 + 0.03 @{ minStep: 90 }
 
-t_9 = 1.57 @{
+t_9 = 1.5707963267948966 @{
   color: "#388c46",
   hidden: true,
   slider: @{
@@ -51,7 +51,7 @@ y <= f_f(x) @{
 
 y <= f_f(x) @{ color: "#000000", lines: @{ width: 0 }, fill: 0.55 }
 
-F_ill1 = 0.7 * F_ill * (0.9 + 0.05 * sin(15 * t_9)) @{ color: "#2d70b3" }
+F_ill1 = 0.55 * F_ill * (0.9 + 0.05 * sin(15 * t_9)) @{ color: "#2d70b3" }
 
 L_imit = -600 @{ color: "#6042a6" }
 
