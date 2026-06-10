@@ -3,14 +3,14 @@ settings @{
   viewport: @{
     xmin: -1014.0208814684378,
     xmax: 977.9086267287377,
-    ymin: -432.33912251703293,
-    ymax: 982.1254793949712,
+    ymin: -527.9800963708792,
+    ymax: 1077.7664532488175,
   },
 }
 
-ticker t_9 -> t_9 + 0.03 @{ minStep: 90 }
+ticker A_nim -> A_nim + 0.03 @{ minStep: 90 }
 
-t_9 = 1.5707963267948966 @{
+t_9 = max(A_nim, pi / 2) @{
   color: "#388c46",
   hidden: true,
   slider: @{
@@ -21,7 +21,10 @@ t_9 = 1.5707963267948966 @{
   },
 }
 
-A_dvance = t_9 -> t_9 + 0.03 @{ color: "#2d70b3" }
+A_nim = 0.5707963267948966 @{
+  color: "#388c46",
+  slider: @{ min: pi / 2 - 1, max: 1000 },
+}
 
 I_ceCastle(x) =
   {
@@ -34,7 +37,10 @@ I_ceCastle(x) =
 
 f_f(x) = c * I_ceCastle((x - a) / d) + b @{ color: "#2d70b3", hidden: true }
 
-F_ill = 1 @{ color: "#388c46", slider: @{ min: 0, max: 1, step: 1 } }
+F_ill = min(A_nim - pi / 2 + 1, 1) @{
+  color: "#388c46",
+  slider: @{ reversed: true, min: 0, max: 1 },
+}
 
 polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
   color: "#000000",
