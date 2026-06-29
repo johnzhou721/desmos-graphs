@@ -1,29 +1,18 @@
 settings @{
   randomSeed: "795ce8fd8106cdaf61bc82c8ec5b2d7a",
   viewport: @{
-    xmin: -1014.0208814684378,
-    xmax: 977.9086267287377,
-    ymin: -527.9800963708792,
-    ymax: 1077.7664532488175,
+    xmin: -957.497712089505,
+    xmax: 917.2594720960702,
+    ymin: -408.91750491438074,
+    ymax: 934.3051302815868,
   },
 }
 
 ticker A_nim -> A_nim + 0.03 @{ minStep: 90 }
 
-t_9 = max(A_nim, pi / 2) @{
+A_nim = -3.4292036732 @{
   color: "#388c46",
-  hidden: true,
-  slider: @{
-    loopMode: "LOOP_FORWARD",
-    period: 2666.6666666666665,
-    min: pi / 2,
-    max: 210.4307963267949,
-  },
-}
-
-A_nim = 0.5707963267948966 @{
-  color: "#388c46",
-  slider: @{ min: pi / 2 - 1, max: 1000 },
+  slider: @{ min: pi / 2 - 5, max: 1000 },
 }
 
 I_ceCastle(x) =
@@ -37,9 +26,20 @@ I_ceCastle(x) =
 
 f_f(x) = c * I_ceCastle((x - a) / d) + b @{ color: "#2d70b3", hidden: true }
 
-F_ill = min(A_nim - pi / 2 + 1, 1) @{
+F_ill = min(0.2 * (A_nim - pi / 2) + 1, 1) @{
   color: "#388c46",
   slider: @{ reversed: true, min: 0, max: 1 },
+}
+
+t_9 = A_nim + 5 @{
+  color: "#388c46",
+  hidden: true,
+  slider: @{
+    loopMode: "LOOP_FORWARD",
+    period: 2666.6666666666665,
+    min: pi / 2,
+    max: 210.4307963267949,
+  },
 }
 
 polygon((-3000, 2000), (3000, 2000), (3000, -2000), (-3000, -2000)) @{
